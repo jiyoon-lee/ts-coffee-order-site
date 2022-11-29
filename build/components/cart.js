@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var index_js_1 = require("../utils/index.js");
 var Cart = /** @class */ (function () {
     function Cart() {
-        this.products = [];
         this.totalPrice = 0;
         this.renderElement = Cart.createRenderElement();
         this.bindEvents();
@@ -43,9 +42,11 @@ var Cart = /** @class */ (function () {
         });
     };
     Cart.prototype.render = function () {
-        this.renderElement.innerHTML = "\n      <h1>\uC7A5\uBC14\uAD6C\uB2C8</h1>\n      <div class=\"Cart\">\n          <ul>\n            ".concat(this.cartItems.map(function (item) {
+        this.renderElement.innerHTML = "\n      <h1>\uC7A5\uBC14\uAD6C\uB2C8</h1>\n      <div class=\"Cart\">\n          <ul>\n            ".concat(this.cartItems
+            .map(function (item) {
             return "\n                <li class=\"Cart__item\">\n                  <img src=\"".concat(item.imageUrl, "\">\n                  <div class=\"Cart__itemDesription\">\n                    <div>").concat(item.productName, " ").concat(item.optionName, " ").concat((0, index_js_1.numberWithCommas)(item.price), "\uC6D0 ").concat(item.quantity, "\uAC1C</div>\n                    <div>").concat((0, index_js_1.numberWithCommas)(item.totalPrice), "\uC6D0</div>\n                  </div>\n                </li>\n              ");
-        }).join(''), "\n          </ul>\n          <div class=\"Cart__totalPrice\">\n              \uCD1D \uC0C1\uD488\uAC00\uACA9 ").concat((0, index_js_1.numberWithCommas)(this.totalPrice), "\uC6D0\n          </div>\n          <button class=\"OrderButton\">\uC8FC\uBB38\uD558\uAE30</button>\n      </div>\n    ");
+        })
+            .join(''), "\n          </ul>\n          <div class=\"Cart__totalPrice\">\n              \uCD1D \uC0C1\uD488\uAC00\uACA9 ").concat((0, index_js_1.numberWithCommas)(this.totalPrice), "\uC6D0\n          </div>\n          <button class=\"OrderButton\">\uC8FC\uBB38\uD558\uAE30</button>\n      </div>\n    ");
         return this.renderElement;
     };
     return Cart;

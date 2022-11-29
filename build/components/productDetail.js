@@ -62,7 +62,7 @@ var ProductDetail = /** @class */ (function () {
                 price: _this.product.price + item.price,
                 totalPrice: (_this.product.price + item.price) * item.quantity,
                 optionName: item.name,
-                quantity: item.quantity
+                quantity: item.quantity,
             }); });
             localStorage.setItem('products_cart', JSON.stringify(products_cart));
         }
@@ -73,7 +73,7 @@ var ProductDetail = /** @class */ (function () {
     ProductDetail.prototype.bindEvents = function () {
         var _this = this;
         this.renderElement.addEventListener('click', function (e) {
-            if (e.target.tagName === 'BUTTON') {
+            if (e.currentTarget.tagName === 'BUTTON') {
                 _this.saveStorage();
                 location.href = '/cart';
             }
@@ -91,9 +91,10 @@ var ProductDetail = /** @class */ (function () {
                     var $listItem = document.createElement('li');
                     $selectedList.appendChild($listItem);
                     var optionsText = "".concat(_this.product.name, " ").concat(targetOption.name);
-                    optionsText += targetOption.price > 0 ?
-                        "".concat((0, index_js_1.numberWithCommas)(_this.product.price + targetOption.price), "\uC6D0") :
-                        "".concat((0, index_js_1.numberWithCommas)(_this.product.price), "\uC6D0");
+                    optionsText +=
+                        targetOption.price > 0
+                            ? "".concat((0, index_js_1.numberWithCommas)(_this.product.price + targetOption.price), "\uC6D0")
+                            : "".concat((0, index_js_1.numberWithCommas)(_this.product.price), "\uC6D0");
                     $listItem.textContent = optionsText;
                     $selectedList.appendChild($listItem);
                     var $inputWrapper = document.createElement('div');
@@ -101,20 +102,21 @@ var ProductDetail = /** @class */ (function () {
                     $inputWrapper.appendChild($inputElement);
                     $listItem.appendChild($inputWrapper);
                     $inputElement.setAttribute('type', 'number');
-                    $inputElement.setAttribute('min', 1);
-                    $inputElement.setAttribute('max', targetOption.stock);
-                    $inputElement.setAttribute('value', 1);
+                    $inputElement.setAttribute('min', '1');
+                    $inputElement.setAttribute('max', targetOption.stock.toString());
+                    $inputElement.setAttribute('value', '1');
                 }
             }
             if (e.target.tagName === 'INPUT') {
-                if (e.target.value > 0) {
+                if (Number(e.target.value) > 0) {
                     var element = (0, index_js_1.getClosestElement)(e.target, 'li');
                     var index = (0, index_js_1.findIndexListElement)(element);
                     var productList = _this.renderElement.querySelectorAll('li');
                     var replaceElement = document.createElement('div');
                     var targetOption = _this.selectedOptions[index];
-                    _this.selectedOptions[index].quantity = e.target.value;
-                    replaceElement.textContent = "".concat(_this.product.name, " ").concat(targetOption.name, " ").concat((0, index_js_1.numberWithCommas)((targetOption.price + _this.product.price) * e.target.value), "\uC6D0");
+                    _this.selectedOptions[index].quantity = Number(e.target.value);
+                    replaceElement.textContent = "".concat(_this.product.name, " ").concat(targetOption.name, " ").concat((0, index_js_1.numberWithCommas)((targetOption.price + _this.product.price) *
+                        Number(e.target.value)), "\uC6D0");
                     productList[index].replaceChild(replaceElement, productList[index].childNodes[0]);
                 }
             }
@@ -132,10 +134,14 @@ var ProductDetail = /** @class */ (function () {
     };
     ProductDetail.prototype.optionToString = function (productName, productOption) {
         var result = "";
-        result += productOption.stock === 0 ?
-            "<option value=".concat(productOption.id, " disabled> (\uD488\uC808) ").concat(productName, " ").concat(productOption.name) :
-            "<option value=".concat(productOption.id, ">").concat(productName, " ").concat(productOption.name);
-        result += productOption.price > 0 ? " (+".concat((0, index_js_1.numberWithCommas)(productOption.price), ")") : '';
+        result +=
+            productOption.stock === 0
+                ? "<option value=".concat(productOption.id, " disabled> (\uD488\uC808) ").concat(productName, " ").concat(productOption.name)
+                : "<option value=".concat(productOption.id, ">").concat(productName, " ").concat(productOption.name);
+        result +=
+            productOption.price > 0
+                ? " (+".concat((0, index_js_1.numberWithCommas)(productOption.price), ")")
+                : '';
         result += "</option>";
         return result;
     };
@@ -156,7 +162,9 @@ var ProductDetail = /** @class */ (function () {
                         $detail = document.createElement('div');
                         $detail.classList.add('ProductDetail');
                         this.renderElement.append($title, $detail);
-                        $detail.innerHTML = "\n      <img src=\"".concat(imageUrl, "\">\n      <div class=\"ProductDetail__info\">\n        <h2>").concat(name, "</h2>\n        <div class=\"ProductDetail__price\">").concat((0, index_js_1.numberWithCommas)(price), "\uC6D0</div>\n        <select>\n          <option>\uC120\uD0DD\uD558\uC138\uC694.</option>\n          ").concat(productOptions.map(function (productOption) { return "".concat(_this.optionToString(name, productOption)); }), "\n        </select>\n        <div class=\"ProductDetail__selectedOptions\">\n          <h3>\uC120\uD0DD\uB41C \uC0C1\uD488</h3>\n          <ul></ul>\n          <div class=\"ProductDetail__totalPrice\">0\uC6D0</div>\n          <button class=\"OrderButton\">\uC8FC\uBB38\uD558\uAE30</button>\n        </div>\n      </div>\n    ");
+                        $detail.innerHTML = "\n      <img src=\"".concat(imageUrl, "\">\n      <div class=\"ProductDetail__info\">\n        <h2>").concat(name, "</h2>\n        <div class=\"ProductDetail__price\">").concat((0, index_js_1.numberWithCommas)(price), "\uC6D0</div>\n        <select>\n          <option>\uC120\uD0DD\uD558\uC138\uC694.</option>\n          ").concat(productOptions.map(function (productOption) {
+                            return "".concat(_this.optionToString(name, productOption));
+                        }), "\n        </select>\n        <div class=\"ProductDetail__selectedOptions\">\n          <h3>\uC120\uD0DD\uB41C \uC0C1\uD488</h3>\n          <ul></ul>\n          <div class=\"ProductDetail__totalPrice\">0\uC6D0</div>\n          <button class=\"OrderButton\">\uC8FC\uBB38\uD558\uAE30</button>\n        </div>\n      </div>\n    ");
                         return [2 /*return*/, this.renderElement];
                 }
             });

@@ -57,9 +57,11 @@ var ProductList = /** @class */ (function () {
                         $title = document.createElement('h1');
                         $title.textContent = '상품목록';
                         $list = document.createElement('ul');
-                        $list.innerHTML = "\n      ".concat(products.map(function (product) {
+                        $list.innerHTML = "\n      ".concat(products
+                            .map(function (product) {
                             return "\n            <li class=\"Product\">\n                <a href=\"/".concat(product.id, "\">\n                    <img src=\"").concat(product.imageUrl, "\">\n                    <div class=\"Product__info\">\n                    <div>").concat(product.name, "</div>\n                    <div>").concat(product.price, "</div>\n                    </div>\n                </a>\n            </li>\n        ");
-                        }).join(''), "\n    ");
+                        })
+                            .join(''), "\n    ");
                         this.renderElement.append($title, $list);
                         return [2 /*return*/, this.renderElement];
                 }

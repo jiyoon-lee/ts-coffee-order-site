@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Request = function (url) { return __awaiter(void 0, void 0, void 0, function () {
+exports.default = (function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var response, json, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -58,4 +58,4 @@ exports.default = Request = function (url) { return __awaiter(void 0, void 0, vo
             case 5: return [2 /*return*/];
         }
     });
-}); };
+}); });

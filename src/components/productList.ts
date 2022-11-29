@@ -1,5 +1,12 @@
-import { Request } from '../utils/index.js'
+import { Request } from '../utils/index.js';
+interface Product {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
 export default class ProductList {
+  renderElement: Element;
   constructor() {
     this.renderElement = ProductList.createRenderElement();
   }
@@ -15,8 +22,9 @@ export default class ProductList {
 
     const $list = document.createElement('ul');
     $list.innerHTML = `
-      ${products.map((product) => {
-        return `
+      ${products
+        .map((product: Product) => {
+          return `
             <li class="Product">
                 <a href="/${product.id}">
                     <img src="${product.imageUrl}">
@@ -26,8 +34,9 @@ export default class ProductList {
                     </div>
                 </a>
             </li>
-        `
-      }).join('')}
+        `;
+        })
+        .join('')}
     `;
     this.renderElement.append($title, $list);
     return this.renderElement;

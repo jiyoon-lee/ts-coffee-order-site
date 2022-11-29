@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_js_1 = require("../utils/index.js");
+var index_js_1 = require("./index.js");
 var Router = /** @class */ (function () {
     function Router(routes) {
         if (!routes) {

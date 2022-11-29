@@ -1,7 +1,7 @@
 import { removeChildNode } from './index.js';
-
 export default class Router {
   routes: object;
+  rootElement: Element;
   constructor(routes: object) {
     if (!routes) {
       alert('Can not initialize routes, need routes!');
@@ -17,8 +17,8 @@ export default class Router {
   bindEvents() {
     window.addEventListener('click', e => {
       e.preventDefault();
-      if (e.target.closest('a')) {
-        this.routePush(e.target.closest('a').href);
+      if ((e.target as HTMLElement).closest('a')) {
+        this.routePush((e.target as HTMLElement).closest('a').href);
       }
     });
     window.onpopstate = () => this.routing(location.pathname);
@@ -29,7 +29,7 @@ export default class Router {
   }
   routing(pathname: string) {
     let page = '';
-    if (this.routes[pathname]) {
+    if (this.routes[pathname]: object) {
       page = new this.routes[pathname]();
     } else {
       const [_, num] = pathname;
@@ -41,7 +41,7 @@ export default class Router {
       this.render(page);
     }
   }
-  async render(page) {
+  async render(page: ) {
     removeChildNode(this.rootElement);
     this.rootElement.append(await page.render());
   }
